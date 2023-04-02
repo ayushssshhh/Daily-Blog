@@ -1,0 +1,48 @@
+<%- include("partials/header") %>
+
+    <style>
+        img {
+            margin: 20px;
+            width: 70vw;
+            position: relative;
+            left: 50%;
+            transform: translate(-50%);
+
+        }
+
+        h1 {
+            font-family: fantasy;
+            font-size: 50px;
+            color: rgb(222, 228, 242);
+            text-shadow: 1px 1px 1px rgb(60, 82, 129),
+                2px 2px 2px rgb(60, 82, 129),
+                3px 3px 3px rgb(60, 82, 129),
+                4px 4px 4px rgb(60, 82, 129),
+                5px 5px 5px rgb(60, 82, 129);
+        }
+
+        p {
+            color: rgb(30, 30, 77);
+        }
+        .cover{
+
+            min-height: 90vh;
+        }
+    </style>
+
+
+
+
+    <div class="cover">
+        <!-- <div class="line"></div> -->
+        <img src="<%= mainPostRender.img %>" alt="">
+
+        <h1>
+            <%= mainPostRender.title %>
+        </h1>
+        <p><%- mainPostRender.body %></p>
+    </div>
+
+
+
+    <%- include("partials/footer") %>
