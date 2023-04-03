@@ -6,21 +6,23 @@ const ejs = require("ejs");
 // Load the full build.
 const _ = require('lodash');
 const mongoose = require("mongoose");
+const port = 5000;
 
 // connecting to mongodb
-async function run() {
-  // await mongoose.connect('mongodb+srv://ayushssshhh:MongoDBisLove@cluster0.wbywpat.mongodb.net/?retryWrites=true&w=majority/DailyBlog', { useUnifiedTopology: true, useNewUrlParser: true });
-  await mongoose.connect('mongodb://127.0.0.1:27017/DailyBlog', { useUnifiedTopology: true, useNewUrlParser: true });
-  mongoose.connection.once('open', () => {
-    console.log('Connected to db');
-  });
+
+async function run(){
+  await mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://ayush:123456ayush@clus.oz2frgu.mongodb.net/dailyBlog?retryWrites=true&w=majority', { useUnifiedTopology: true, useNewUrlParser: true })
+  .then(() => {
+    console.log("Connected to db");
+  })
+
+  // await mongoose.connect('mongodb://127.0.0.1:27017/DailyBlog', { useUnifiedTopology: true, useNewUrlParser: true })
+  // .then(() => {
+  //   console.log("Connected to db");
+  // })
 }
 
-const app = express();
-app.set('view engine', 'ejs');
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
+run();
 
 // blogSchema
 const blogSchema = {
@@ -35,18 +37,21 @@ const blogSchema = {
 // creating Blog collection
 const Blog = mongoose.model("Blog", blogSchema);
 
-
-
-const port = 5000;
-
 const blog1 = new Blog({
   title: "Daily Blog",
   body: "DailyBlog is an online bloging website made by Kumar Ayush as a personal development project. This website is a dynamic website which enables user to post their blogs through compose page and get listed on home page, users can also read posted Blogs in home page by clicking on it.<br>Technologies used : <br><br>&emsp;&emsp; &emsp;&emsp; 1. html <br>&emsp; &emsp;&emsp; &emsp;  2. CSS <br>&emsp; &emsp;&emsp; &emsp;  3. JavaScript <br>&emsp;&emsp; &emsp; &emsp;  4. NodeJs <br>&emsp;&emsp; &emsp; &emsp;  5. Express <br>&emsp;&emsp; &emsp; &emsp;  6. EJS <br>&emsp;&emsp; &emsp; &emsp;  7. Bootstrap",
   img: "/images/blog1.png"
 });
 
+const app = express();
+app.set('view engine', 'ejs');
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"));
+
+
+
 app.get("/", async (req, res) => {
-  run();
   // to get count of records in Blog
   await Blog.count().then((count, err) => {
     if (err) {
