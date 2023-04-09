@@ -69,7 +69,7 @@ span a:hover{
     
     background-image: repeating-radial-gradient(farthest-corner at 00px 0px, black 25% , rgb(54, 18, 86) 30% );
     background-size: 150% 150%;
-    animation: color 10s ease-in-out alternate 1;
+    animation: color 15s ease-in-out alternate 1;
 }
 
 @keyframes color {
@@ -181,7 +181,7 @@ span a:hover{
 /* blogSection */
 
 .blog {
-    padding: 10% 10% 0%;
+    padding: 130px 10% 0%;
     width: 100vw;
     background-image: linear-gradient(-45deg, #E5E0FF, #7286D3);
 }
@@ -204,8 +204,9 @@ span a:hover{
     border-radius: 6px;
     background-color: rgba(255, 255, 255, 0.338);
     border: none;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     max-width: 350px;
+    margin: 0 auto 20px;
 }
 
 .row .card .card-head {

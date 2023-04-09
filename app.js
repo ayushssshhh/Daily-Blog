@@ -89,18 +89,13 @@ app.get("/compose", (req, res) => {
 
 app.get("/post/:topic", async (req, res) => {
   let topic = req.params.topic;
-  topic = _.lowerCase(topic);
+  // topic = _.lowerCase(topic);
+  console.log(topic);
 
   await Blog.findOne({ title: topic }).then((post, err) => {
-    if (post == null) {
-      res.render("post", {
-        mainPostRender: blog1
-      })
-    } else {
-      res.render("post", {
+    res.render("post", {
         mainPostRender: post
       })
-    }
 
   })
 
