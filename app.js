@@ -9,20 +9,18 @@ const mongoose = require("mongoose");
 const port = 5000;
 
 // connecting to mongodb
-
-async function run(){
-  await mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://ayush:123456ayush@clus.oz2frgu.mongodb.net/dailyBlog?retryWrites=true&w=majority', { useUnifiedTopology: true, useNewUrlParser: true })
+  mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://ayush:123456ayush@clus.oz2frgu.mongodb.net/dailyBlog?retryWrites=true&w=majority', { useUnifiedTopology: true, useNewUrlParser: true })
   .then(() => {
     console.log("Connected to db");
   })
 
-  // await mongoose.connect('mongodb://127.0.0.1:27017/DailyBlog', { useUnifiedTopology: true, useNewUrlParser: true })
+  // mongoose.connect('mongodb://127.0.0.1:27017/DailyBlog', { useUnifiedTopology: true, useNewUrlParser: true })
   // .then(() => {
   //   console.log("Connected to db");
   // })
-}
 
-run();
+
+
 
 // blogSchema
 const blogSchema = {
@@ -50,10 +48,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 
+app.get("/" , (req , res) =>{
+  res.render("intro");
+})
 
-app.get("/", async (req, res) => {
+app.post("/" , (req ,res)=>{
+  res.redirect("/home");
+})
+
+
+app.get("/home", (req, res) => {
   // to get count of records in Blog
-  await Blog.count().then((count, err) => {
+  Blog.count().then((count, err) => {
     if (err) {
       console.log(err);
     } else {
@@ -62,7 +68,7 @@ app.get("/", async (req, res) => {
     }
   })
 
-  await Blog.find().then((post, err) => {
+  Blog.find().then((post, err) => {
     if (err) {
       console.log("----err occured-----\n" + err);
     }
